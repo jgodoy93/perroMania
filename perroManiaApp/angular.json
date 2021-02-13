@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "perroManiaApp"
+  "defaultProject": "perroManiaApp",
+  "cli": {
+    "analytics": "c9730df4-e707-47a9-9951-e30bd77463d1"
+  }
 }
