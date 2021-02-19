@@ -1,0 +1,34 @@
+Estructura Proyecto y Escalabilidad
+
+    -core (Carpeta donde se encuentra los elementos compartidos en la api){
+        -models (entidades)
+        -shared (elementos compartidos de la aplicacion){
+            -components()
+        }
+    }
+    -admin (Zona a la que acceden los administradores de la pagina)
+
+    -public (Zona a la que puede acceder todo el mundo){
+        -home(pantalla principal){
+            -components()
+            -containers()
+        }
+        -loggin(ingreso de datos){
+            -components()
+            -containers()
+        }
+    }
+    -intranet (Zona a la que acceden los usuarios registrados)
+
+
+
+
+
+
+
+Tareas
+API para consumir
+{
+Razas,
+Zonas(buscar en argentina para programadores)
+}

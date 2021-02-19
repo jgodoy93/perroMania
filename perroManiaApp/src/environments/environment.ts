@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   url: '',
+  url2: '' //Test api Externa
 };
 
 /*
