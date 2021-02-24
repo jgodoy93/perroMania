@@ -1,13 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Component } from '@angular/core';
+
+
+import { Subscription } from 'rxjs';
+
 
 @Component({
     selector: 'app-public',
     templateUrl: 'public.component.html'
 })
 
-export class PublicComponent implements OnInit {
-    constructor() { }
+export class PublicComponent{
 
-    ngOnInit() { }
+    showHeader : boolean; 
+    showFooter : boolean; 
+
+    subscriptions : Subscription
+
+    constructor(private router: Router, activatedRoute: ActivatedRoute) {
+        this.subscriptions = router.events.subscribe(event => {
+            if(event instanceof NavigationEnd){
+                console.log(event);
+                const {showHeader = true, showFooter = true} = activatedRoute.firstChild.snapshot.data; 
+                this.showHeader = showHeader;
+                this.showFooter = showFooter;
+            }
+        })
+    }
+
+    
 }
 

@@ -1,0 +1,9 @@
+.perros {
+  border-color: azure;
+  color: azure;
+}
+
+.perros:hover {
+  background: azure;
+  color: lightcoral;
+}

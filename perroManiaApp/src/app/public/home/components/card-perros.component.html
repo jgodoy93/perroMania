@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-lg-4 col-12 mt-3 mb-3" *ngFor= 'let perro of perros'>
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{perro.image}}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{perro.name}}</h5>
+              <p class="card-text">{{perro.created | date: "dd-MM-yyyy"}}</p>
+              <a href="#" class="btn btn-primary">Like</a>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+

@@ -32,3 +32,246 @@ API para consumir
 Razas,
 Zonas(buscar en argentina para programadores)
 }
+
+
+Teoria Renderizacion Componentes 
+
+//Inspeccion de Rutas para decidir si renderizar o no componentes
+/*
+
+import { ActivatedRoute, NavigationEnd, Router} from '@angular/core';
+import { Subscription } from 'rxjs';
+
+//ActivatedRoute: Nos da los parametros y la info de la ruta actual 
+//NavigationEnd: (evento) nos informa cuando fue resuelta la promise del ruteo
+//Router: informacion de rutas
+
+export class AppComponent {
+  title = 'perroManiaApp';
+  showHeader = boolean; //Defino la propiedad showHeader
+  showFooter = boolean; //OtraProp
+  //Recordar que no se puede usar async y await dentro del contructor, xq este se instancia una sola vez,
+  //para resolver la promesa dentro del contructor se usa Observer
+
+  subscriptions : Subscription //objeto al cual le cargo la resolucion de la promise
+  constructor(private: router: Router, activatedRoute: ActivatedRoute){
+
+  //resuelvo la promise con un callback () => {}
+    this.subscriptions = router.events.subscribe(event => {
+      
+      if(event instanceof NavigationEnd){
+
+        const (showHeader = true, showFooter = true) = activatedRoute.firstChild.snapshot.data;
+        this.showHeader = showHeader;
+        this.showFooter = showFooter;
+
+      }
+
+      
+      //event (promise) -> es un objeto que tiene un conjunto de elementos que definen su estado (NavigationStart,NavigationEnd, NavigationError)
+      //con .subscribe() -> genero un Observable que ve los estados en los cuales se esta resolviendo la promise
+      //entonces if(event instanceof NavigationEnd) == true -> esto me esta diciendo que el objeto event se creo a partir
+        de la instancia NavigationEnd, por lo tanto la promesa esta resuelta con ese estado
+      
+      //(showHeader = true) -> dejo por defecto que el elemento header se este mostrando para no tener que repetir esta orden dentro del routing
+      //activatedRoute.firstChild.snapshot.data -> entro dentro del los parametros de la ruta para poder modificarlos
+      //this.showHeader = showHeader -> igualo los parametros a la variable que instancie al principio para que pueda Modificarlos
+
+      //Dentro de Routing
+      {
+        path: '/rutaEjemplo' //nombre de la ruta
+        loadChildren: rutaModulo //Modulo que renderizo
+        data: { showHeader: false , showFooter = false } -> desde aca seteo si quiero que se renderice ese componente
+        //en este caso no se rendiriza ni el footer ni el header 
+      }
+      
+      {
+        path: '/rutaEjemplo' //nombre de la ruta
+        loadChildren: rutaModulo //Modulo que renderizo
+        //si no digo nada, por defecto el componente se renderiza debido al (showHeader = true) que use en el ts
+      }
+
+      //Dentro del Html del Modulo
+      <app-header *ngIf="showHeader"></app-header>
+      <router-outlet></router-outlet>
+      <app-footer *ngIf="showFooter"></app-footer>
+
+
+    })
+
+  }
+}
+*/
+
+
+/*
+  //Teoria Guardian
+
+  Creo un modulo y componente 'Pipes'
+
+    Guardian de autenficacion de usuario
+
+    -El guardian en un servicio, lo puedo guardan dentro de la carpeta de servicios
+    -El guardian proteje las rutas y redirecciona en caso de no cumplir una condicion
+      -Puede proteger rutas del principales del modulo, asi como rutas de los hijos
+    
+    Creo el guardian dentro del modulo donde lo voy a utilizar
+    -> ng g g modulo/auth.guard.ts
+
+    -> auth.guard.ts
+      import { Injectable } form '@angular/core';
+      import { CanActivate, Router } from '@angular/router';
+
+      //la decoracion Injectable sirve para no tener que nombrar el servicio en el providers del modulo
+      //asi no se crea un array gigante de servicios dentro de un modulo
+      
+      @Injectable({
+        providedIn: 'root',
+      })
+
+      export class AuthGuard implements CanActivate {
+
+        constructor(private router: Router) {}
+
+        canActivated(): boolean {
+          let status = false; //Inicializo la variable status
+          
+          localStorage.getItem('JWT) // Busco el jwt dentro del local localStorage
+
+          ? (status = true) //Retorno verdadero si es verdadero
+          : this.router.navigate(['pipes]); //Si es falso redireccion a pipes
+
+          return status;
+        }
+      }
+      
+      //Implementacion en app-routingmodule.ts
+
+          //en el array de rutas
+          const routes: Routes = [
+            { path: 'docentes', canActivate: [AuthGuard], loadChildren: docentesModule },
+          ]
+*/
+
+/*
+  Creacion FormData()
+
+  //Cosas para agregar a formGrup cuando quiero subir una imagen
+
+  en el TS
+
+  export class CreateComponent implements OnInit {
+
+    form: FormGroup;
+    
+    selectedFile: File; //donde van las imagens 
+    previewUrl: any;
+
+    FormObject : any = {
+      nombre : new FormControl('',),
+      apellido: new FormControl('',[Validators.required])
+      dni: new FormControl('',[Validators.required])
+    }
+
+    createForm(): void {
+      this.form = new.formGroup(this.FormObject);
+    }
+
+    //funcion que recibe el evento que se dispara al cargar una imagen en el input
+    onFileSelected(e : any) {
+
+      //Para hacer la precarga de la imagen
+
+      const reader = new FileReader();
+      const {files} = e.target;
+      
+      if(files && files.lenght) {
+        this.selectedFile = files[0]; //seleccion el archivo
+        reader.onload = (e) => {
+          this.previewUrl = reader.result;
+        };
+        reader.readAsDataURL(this.selectedFile); //genero una url a partir del archivo leido
+      }
+    }
+
+    //Funcion para crear el objeto con el formGroup y el FormData
+
+    async upload(){
+      const {nombre,apellido,dni} = this.form.value; //destruturo formGroup para traer los valores
+      const fd = new FormData() // genero el form Data
+
+      //guardo los valores en el nuevo FormData
+      fd.append('nombre',nombre);
+      fd.append('apellido',apellido);
+      fd.append('dni',dni);
+      fd.append('imagen', this.selectedFile, this.selectedFile.name); {mimetype, name, size}
+
+      const result = await this.service.create(fd); //con esto mando el objeto al service y este lo manda al back
+    }
+
+
+    constructor (private service: DocentesService) {}
+
+
+    ngOnInit: void {
+      this.createdForm();
+    }
+
+
+  }
+
+
+  en Html
+
+  //dentro del formulario agrego
+
+  <form [formGroup] = "form" enctype="multipart/form-data">
+
+    //despues de los div donde va los inputs del form-group y el form-FormControl
+
+    //Input donde se carga la imagen
+    <div class="form-group">
+      <input 
+        type="file"
+        class="form-control"
+        name="imagen"
+        id="imagen"
+        (change)="onFileSelected($event)"
+      />  
+
+    //Elemento donde se hace el preview de la imagen
+    <img [src]="previewUrl" styles="... heigh="auto""/>
+    </div>
+
+    //Boton y funcion para crear el Objeto con la imagen
+
+    <button type="button" (click)="upload() [disabled]="form.invalid">Nuevo Objeto </button>
+
+
+    en Servicio 
+
+    import { Injectable } from '@angular/core';
+    import { BaseService } from '../../core/Service/base.service';
+    import { environment } from '../../../environments/environment';
+ 
+    @Injectable({
+      providedIn: 'root'
+    })
+    export class ObjetoService extends BaseService{
+      
+        create(obj: Object){
+          // this.setEndpoint('objeto')
+          //return this.http.post(obj);
+        }
+
+  
+    }
+
+
+
+
+
+*/
+
+
+

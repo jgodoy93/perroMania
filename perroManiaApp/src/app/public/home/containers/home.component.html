@@ -1,1 +1,21 @@
-<p>home works!</p>
+
+<div class="d-flex container justify-content-center">
+    <div class="row">
+        <div class="col-12">
+            <h1>MANTENÉ A TU PERRITO CONECTADO</h1>
+            <button class="btn btn-primary" (click)= [navegar()]>VerPerritos</button>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="[token] != ''">
+    <h6>Nombre: {{nombre}}</h6>
+    <h6>Apellido: {{apellido}}</h6>
+    <h6>Token: {{token}}</h6>
+</div>
+
+
+<div class="container" *ngIf="[token] != ''">
+    <button class="btn btn-primary" type="button" (click)="cerrarSession()">CerrarSesion</button>
+  </div>

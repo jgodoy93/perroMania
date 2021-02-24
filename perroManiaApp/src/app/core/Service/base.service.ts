@@ -1,26 +1,46 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment'; 
-
+import { Router } from '@angular/router';
+import { CookieService } from "ngx-cookie-service";
+ 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseService {
   urlServer: string = environment.url;
   endpoint: string = '';
-  constructor(private http: HttpClient) {}
+  constructor(
+    public http: HttpClient, 
+    private router: Router, 
+    public cookies: CookieService
+    ) {}
 
   setEndPoint(endpoint){
     this.endpoint = endpoint;
   }
 
-  handlerError({status}){
-    if(status === 401){
-      //unauthorized
-    }else if(status === 500){
-      //Internal server error
-      //location.hfer = 'https://http.cat/'+ status; 
+  
+  private getHttpOptions() {
+    let httpOptions = {};
+    //LocalStorage -> persiste cuando se cierra el navegador
+    //SessionStorage -> se limpia al cerrar el navegador
+    const token = localStorage.getItem('JWT');
+    if(token){
+      httpOptions = {
+        headers: new HttpHeaders({
+          Authorization: token,
+        }),
+      }
     }
+    return httpOptions;
+  }
+  
+  
+  handlerError({status}){
+    status === 401 ? this.router.navigate(['login']) : null;
+    status === 404 ? this.router.navigate(['notfound']) : null; // ver de redigir al notfound component
+    //Recordad Limpiar el Storage para que vuelva a pedir inicio de sesion
   }
 
   async get() {
@@ -29,6 +49,7 @@ export class BaseService {
       //por lo tanto el endpoint debe llevar '/' ej: urlServer/empleados sino salta error 
       return await this.http
       .get(`${this.urlServer}/${this.endpoint}`)
+      //.get(`${this.urlServer}/${this.endpoint}`, this.getHttpOptions())
       .toPromise();
     }catch (e){
       this.handlerError(e);

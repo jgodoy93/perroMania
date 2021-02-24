@@ -1,6 +1,16 @@
 .head {
   margin: 3px;
-  background-color: lightcoral;
+  background-color: springgreen;
   color: white;
   height: 60px;
+}
+
+.perros {
+  border-color: azure;
+  color: azure;
+}
+
+.perros:hover {
+  background: azure;
+  color: springgreen;
 }

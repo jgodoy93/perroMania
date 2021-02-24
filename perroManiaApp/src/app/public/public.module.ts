@@ -5,19 +5,38 @@ import { PublicRoutingModule } from './public-routing.module';
 import { SharedModule } from '../core/shared/shared.module';
 import { HomeComponent } from './home/containers/home.component';
 import { LoginComponent } from './login/containers/login.component';
-
+import { CardPerrosComponent } from './home/components/card-perros.component';
+import { CardLogginComponent } from './login/components/card-loggin.component';
+import { RegistryComponent } from './registry/containers/registry.component';
+import { RecoveryComponent } from './recovery/containers/recovery.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CardRegistryComponent } from './registry/components/card-registry.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
+  providers: [CookieService],
   declarations: [
     PublicComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    CardPerrosComponent,
+    CardLogginComponent,
+    RegistryComponent,
+    RecoveryComponent,
+    CardRegistryComponent,
   ],
   imports: [
     CommonModule,
     PublicRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  exports: [
+    PublicComponent
+  ] 
 })
 export class PublicModule { }

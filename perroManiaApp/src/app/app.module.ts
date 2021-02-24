@@ -1,10 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule} from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
+
 
 @NgModule({
   declarations: [
@@ -14,6 +17,7 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     NgbModule,
     AppRoutingModule,
+    HttpClientModule,
     CoreModule
   ],
   providers: [],
