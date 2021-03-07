@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   navegar(){
     this.router.navigate(['home/perros']);
   }
-
+   
   ngOnInit(): void {
     //this.getUserLogged();
   }

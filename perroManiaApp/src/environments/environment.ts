@@ -6,6 +6,9 @@ export const environment = {
   production: false,
   url: '',
   urlTestRickAndMorty: 'https://rickandmortyapi.com/api/', //Test api Externa
+  urlHoly: 'http://localhost:3200/',
+  urlAgustin: 'http://192.168.0.7:3200',
+  urlJona: 'http://192.168.0.4:3200',
 };
 
 /*
