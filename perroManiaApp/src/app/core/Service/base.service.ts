@@ -15,32 +15,27 @@ export class BaseService {
     private router: Router, 
     public cookies: CookieService
     ) {}
-
   setEndPoint(endpoint){
     this.endpoint = endpoint;
   }
 
-  
   private getHttpOptions() {
     let httpOptions = {};
-    //LocalStorage -> persiste cuando se cierra el navegador
-    //SessionStorage -> se limpia al cerrar el navegador
     const token = localStorage.getItem('JWT');
+    //Si no esta en LocalStorage consultar en sessionStorage
     if(token){
       httpOptions = {
         headers: new HttpHeaders({
           Authorization: token,
         }),
-      }
+      };
     }
     return httpOptions;
   }
   
-  
   handlerError({status}){
     status === 401 ? this.router.navigate(['login']) : null;
-    status === 404 ? this.router.navigate(['notfound']) : null; // ver de redigir al notfound component
-    //Recordad Limpiar el Storage para que vuelva a pedir inicio de sesion
+    status === 404 ? this.router.navigate(['notfound']) : null;
   }
 
   async get() {
@@ -48,8 +43,7 @@ export class BaseService {
       //Tener en cuenta que dentro de get(), se combina el string de urlServer+endpoint
       //por lo tanto el endpoint debe llevar '/' ej: urlServer/empleados sino salta error 
       return await this.http
-      .get(`${this.urlServer}/${this.endpoint}`)
-      //.get(`${this.urlServer}/${this.endpoint}`, this.getHttpOptions())
+      .get(`${this.urlServer}/${this.endpoint}`, this.getHttpOptions())
       .toPromise();
     }catch (e){
       this.handlerError(e);
@@ -59,10 +53,14 @@ export class BaseService {
   async post(body){
     try{
       return await this.http
-      .post(`${this.urlServer}/${this.endpoint}`,body)
+      .post(`${this.urlServer}/${this.endpoint}`,body,this.getHttpOptions())
       .toPromise();
     }catch(e){
       this.handlerError(e);
     }
   }
 }
+
+/* 
+  TODO: Hacer Put y Delete
+*/

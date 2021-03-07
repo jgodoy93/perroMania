@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center form_container">
-            <form [formGroup]="formRegistry" (ngSubmit)="registryAPI()">
+            <form [formGroup]="formRegistry" (ngSubmit)="registry()">
                 <div class="form-group">
                     <label for="usuario">usuario <span class="text-danger">*</span></label>
                     <span class="text-danger">{{ verifyField("usuario") }}</span>

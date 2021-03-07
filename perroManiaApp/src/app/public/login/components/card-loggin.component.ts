@@ -35,7 +35,7 @@ export class CardLogginComponent implements OnInit {
 
   /*
   TEST CON API EXTERNA
-  */
+
   email: string;
   pass: string; 
 
@@ -51,6 +51,7 @@ export class CardLogginComponent implements OnInit {
     });
     
   }
+  */
 
 
 }

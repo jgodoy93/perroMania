@@ -5,9 +5,7 @@
 export const environment = {
   production: false,
   url: '',
-  url2: '',
   urlTestRickAndMorty: 'https://rickandmortyapi.com/api/', //Test api Externa
-  urlTestLogin: '' //Test api Externa Loggin
 };
 
 /*

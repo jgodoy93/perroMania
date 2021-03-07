@@ -18,13 +18,7 @@ Estructura Proyecto y Escalabilidad
             -containers()
         }
     }
-    -intranet (Zona a la que acceden los usuarios registrados)
-
-
-
-
-
-
+    -client (Zona a la que acceden los usuarios registrados)
 
 Tareas
 API para consumir

@@ -17,29 +17,35 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUserLogged();
+    //this.getUserLogged();
   }
-
-  
 
   nombre : string;
   apellido: string;
   token: string;
 
-  getUserLogged() {
-    this.token = this.publicService.getTokenAPI();
-    console.log(this.token);
-    this.publicService.getUserAPI().subscribe( user => {
-      
-      this.nombre = user.data.first_name;
-      this.apellido = user.data.last_name;
-      
-    }
-    );
-  }
+  
   cerrarSession(){
     this.publicService.cookies.delete('token');
     this.router.navigate(['login']);
   }
+
+  /* 
+    getUserLogged() {
+    this.token = this.publicService.getTokenAPI();
+    console.log(this.token);
+    this.publicService.getUserAPI().subscribe( user => {
+      
+      //this.nombre = user.data.first_name;
+      //this.apellido = user.data.last_name;
+      
+    }
+    );
+  }
+  */
+
+
+
+
 
 }

@@ -17,16 +17,25 @@ export class PublicService extends BaseService{
   }
 
 
+
+
+
+
+
+
+
+
+
+
   /*
     Test con Api Externa
-  */
+  
   loginAPI(user : any): Observable<any> {
     return this.http.post("https://reqres.in/api/login", user);
   }
   registerAPI(user: any): Observable<any> {
     return this.http.post("https://reqres.in/api/register", user);
   }  
-
   setTokenAPI(token: string){
     this.cookies.set('token',token);
   }
@@ -39,7 +48,6 @@ export class PublicService extends BaseService{
   getUserLogged() {
     const token = this.getTokenAPI();
   }
-
-
+  */
 
 }

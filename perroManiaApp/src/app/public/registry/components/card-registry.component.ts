@@ -59,7 +59,7 @@ export class CardRegistryComponent implements OnInit {
   }
   /*
   TEST CON API EXTERNA
-  */
+  
   email: string;
   pass: string;
 
@@ -72,9 +72,8 @@ export class CardRegistryComponent implements OnInit {
     this.publicSevice.registerAPI(user).subscribe( data => {
       this.publicSevice.setTokenAPI(data.token);
     })
-    
   }
-
+  */
 
 
 }

@@ -1,0 +1,54 @@
+Inicio(
+    //Load() app.module.ts
+    //Render index.Html
+
+    if(LocalStorage(token) == null){
+        //USUARIO NO LOGUEADO,
+        //Load() public.module.ts
+            path: 'home' -> mensaje bienvenida
+            (click) verPerritos(){
+                path: '/perros'
+                Load() perros.module.ts ->muestra 6 cards de perros (sin direccion) y boton ver mas;
+                (click) verMas(){
+                    router: '/login';
+                    --------------------->Login
+                    (click) ingresar() -------->(validators.Valid) [Recordarme ? LocalStorage(setJwt) : SessionStorage(setJwt)] {
+                        //OK
+                        Load() Client.module.ts
+                        path:'/homeClient'
+                        ----------------->Client
+                    } 
+                    (click) Registrate(){
+                        router: '/registry'
+                        (click) Registrarse() -------> (validators.Valid) {
+                            Load() Client.module.ts
+                            path:'/homeClient'
+                            ----------------->Client
+                        }
+                    }
+                    (click) Olvidaste tu Contraseña? (){
+                        router: '/recovery'
+                        { TODO: Hacer Module recovery},
+                    }
+                }
+            }
+    }else{
+        //USUARIO LOGUEADO,
+        //Load() client.module.ts
+            path:'/homeClient' -> menu principal del usuario
+            ----------------->Client
+    }
+)
+
+Client
+------------------>
+
+
+
+
+
+    
+
+
+
+
