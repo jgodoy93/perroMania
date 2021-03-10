@@ -33,7 +33,7 @@ const routes: Routes = [
       {
         path: 'registry',
          component: RegistryComponent,
-         //data: 
+         data: {showFooter: false} 
       },
       {
         path: 'recovery',

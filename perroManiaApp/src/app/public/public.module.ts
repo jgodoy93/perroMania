@@ -13,7 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardRegistryComponent } from './registry/components/card-registry.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-
+import { RegistrySuccessComponent } from './registry/components/registry-success/registry-success/registry-success.component';
 
 @NgModule({
   providers: [CookieService],
@@ -26,6 +26,7 @@ import { CookieService } from 'ngx-cookie-service';
     RegistryComponent,
     RecoveryComponent,
     CardRegistryComponent,
+    RegistrySuccessComponent,
   ],
   imports: [
     CommonModule,
@@ -33,10 +34,8 @@ import { CookieService } from 'ngx-cookie-service';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  exports: [
-    PublicComponent
-  ] 
+  exports: [PublicComponent],
 })
-export class PublicModule { }
+export class PublicModule {}

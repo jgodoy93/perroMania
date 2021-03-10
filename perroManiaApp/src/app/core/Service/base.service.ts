@@ -12,7 +12,7 @@ export class BaseService {
   endpoint: string = '';
   constructor(
     public http: HttpClient, 
-    private router: Router, 
+    public router: Router, 
     public cookies: CookieService
     ) {}
   setEndPoint(endpoint){
@@ -35,7 +35,7 @@ export class BaseService {
   
   handlerError({status}){
     status === 401 ? this.router.navigate(['login']) : null;
-    status === 404 ? this.router.navigate(['notfound']) : null;
+    status === 404 ? this.router.navigate(['notfound']) : null;    
   }
 
   async get() {

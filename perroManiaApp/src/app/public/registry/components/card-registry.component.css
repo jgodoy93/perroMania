@@ -3,7 +3,7 @@
 }
 
 .user_card {
-  height: 570px;
+  height: auto;
   width: 500px;
   margin-top: 90px;
   margin-bottom: auto;
@@ -39,6 +39,7 @@
 .form_container {
   margin-top: 100px;
 }
+
 .login_btn {
   width: 100%;
   background: azure;
@@ -52,10 +53,19 @@
   box-shadow: none;
   outline: 0px;
 }
+.login_btn:disabled {
+  cursor: default;
+  background: azure;
+  color: steelblue;
+}
 .login_container {
   padding: 0 2rem;
 }
 
 .input_registry {
   width: 400px;
+}
+
+.message-size-sm {
+  font-size: 14px;
 }
